@@ -100,7 +100,9 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: MailLinkNode) {
-    warn("not implemented yet: " + node)
+    openTag("email")
+    text(node.getText)
+    closeTag("email")
   }
 
   def visit(node: OrderedListNode) {

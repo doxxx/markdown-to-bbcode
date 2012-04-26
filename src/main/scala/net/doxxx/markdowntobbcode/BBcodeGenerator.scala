@@ -151,7 +151,6 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: SimpleNode) {
-    Console.println(node.getClass.getName + ": " + node)
     node.getType match {
       case SimpleNode.Type.Apostrophe => text("'")
       case SimpleNode.Type.Ellipsis => text("...")

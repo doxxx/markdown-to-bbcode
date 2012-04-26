@@ -157,7 +157,7 @@ class BBcodeGenerator extends Visitor {
       case SimpleNode.Type.Apostrophe => text("'")
       case SimpleNode.Type.Ellipsis => text("...")
       case SimpleNode.Type.Emdash => text("--")
-      case SimpleNode.Type.Endash => text("-;")
+      case SimpleNode.Type.Endash => text("-")
       case SimpleNode.Type.HRule => { newline(); text("---"); newline() }
       case SimpleNode.Type.Linebreak => newline()
       case SimpleNode.Type.Nbsp => text(" ")

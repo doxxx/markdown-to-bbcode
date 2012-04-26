@@ -33,10 +33,10 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: BulletListNode) {
-    openTag("ul")
+    openTag("list")
     newline()
     visitChildren(node)
-    closeTag("ul")
+    closeTag("list")
     newline()
     newline()
   }
@@ -104,10 +104,10 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: OrderedListNode) {
-    openTag("ol")
+    openTag("list=1")
     newline()
     visitChildren(node)
-    closeTag("ol")
+    closeTag("list")
     newline()
     newline()
   }

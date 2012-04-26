@@ -2,9 +2,11 @@ package net.doxxx.markdowntobbcode
 
 import org.pegdown.ast._
 import scala.collection.JavaConversions._
+import org.pegdown.LinkRenderer
 
 class BBcodeGenerator extends Visitor {
   val sb = new StringBuilder
+  val renderer = new LinkRenderer()
 
   def toBBcode(rootNode: RootNode): String = {
     rootNode.accept(this)
@@ -16,14 +18,21 @@ class BBcodeGenerator extends Visitor {
     visitChildren(node)
   }
 
-  def visit(node: AbbreviationNode) {}
+  def visit(node: AbbreviationNode) {
+    warn("not implemented yet: " + node)
+  }
 
-  def visit(node: AutoLinkNode) {}
+  def visit(node: AutoLinkNode) {
+    link(renderer.render(node))
+  }
 
-  def visit(node: BlockQuoteNode) {}
+  def visit(node: BlockQuoteNode) {
+    openTag("quote")
+    visitChildren(node)
+    closeTag("quote")
+  }
 
   def visit(node: BulletListNode) {
-    Console.println(node.getClass.getName + ": " + node)
     openTag("ul")
     newline()
     visitChildren(node)
@@ -33,7 +42,6 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: CodeNode) {
-    Console.println(node.getClass.getName + ": " + node)
     openTag("code")
     newline()
     text(node.getText)
@@ -41,25 +49,33 @@ class BBcodeGenerator extends Visitor {
     newline()
   }
 
-  def visit(node: DefinitionListNode) {}
+  def visit(node: DefinitionListNode) {
+    warn("not implemented yet: " + node)
+  }
 
-  def visit(node: DefinitionNode) {}
+  def visit(node: DefinitionNode) {
+    warn("not implemented yet: " + node)
+  }
 
-  def visit(node: DefinitionTermNode) {}
+  def visit(node: DefinitionTermNode) {
+    warn("not implemented yet: " + node)
+  }
 
   def visit(node: EmphNode) {
-    Console.println(node.getClass.getName + ": " + node)
     openTag("i")
     visitChildren(node)
     closeTag("i")
   }
 
-  def visit(node: ExpImageNode) {}
+  def visit(node: ExpImageNode) {
+    warn("not implemented yet: " + node)
+  }
 
-  def visit(node: ExpLinkNode) {}
+  def visit(node: ExpLinkNode) {
+    link(renderer.render(node, childrenToString(node)))
+  }
 
   def visit(node: HeaderNode) {
-    Console.println(node.getClass.getName + ": " + node)
     openTag("size=" + (6 - node.getLevel))
     openTag("b")
     visitChildren(node)
@@ -69,21 +85,25 @@ class BBcodeGenerator extends Visitor {
     newline()
   }
 
-  def visit(node: HtmlBlockNode) {}
+  def visit(node: HtmlBlockNode) {
+    warn("not implemented yet: " + node)
+  }
 
-  def visit(node: InlineHtmlNode) {}
+  def visit(node: InlineHtmlNode) {
+    warn("not implemented yet: " + node)
+  }
 
   def visit(node: ListItemNode) {
-    Console.println(node.getClass.getName + ": " + node)
     openTag("*")
     visitChildren(node)
     newline()
   }
 
-  def visit(node: MailLinkNode) {}
+  def visit(node: MailLinkNode) {
+    warn("not implemented yet: " + node)
+  }
 
   def visit(node: OrderedListNode) {
-    Console.println(node.getClass.getName + ": " + node)
     openTag("ol")
     newline()
     visitChildren(node)
@@ -93,14 +113,12 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: ParaNode) {
-    Console.println(node.getClass.getName + ": " + node)
     visitChildren(node)
     newline()
     newline()
   }
 
   def visit(node: QuotedNode) {
-    Console.println(node.getClass.getName + ": " + node)
     node.getType match {
       case QuotedNode.Type.Double => {
         text("\"")
@@ -120,65 +138,83 @@ class BBcodeGenerator extends Visitor {
     }
   }
 
-  def visit(node: ReferenceNode) {}
+  def visit(node: ReferenceNode) {
+    warn("not implemented yet: " + node)
+  }
 
-  def visit(node: RefImageNode) {}
+  def visit(node: RefImageNode) {
+    warn("not implemented yet: " + node)
+  }
 
-  def visit(node: RefLinkNode) {}
+  def visit(node: RefLinkNode) {
+    warn("not implemented yet: " + node)
+  }
 
   def visit(node: SimpleNode) {
     Console.println(node.getClass.getName + ": " + node)
     node.getType match {
-      case SimpleNode.Type.Apostrophe => text("&rsquo;")
-      case SimpleNode.Type.Ellipsis => text("&hellip;")
-      case SimpleNode.Type.Emdash => text("&mdash;")
-      case SimpleNode.Type.Endash => text("&ndash;")
-      case SimpleNode.Type.HRule => { newline(); text("---") }
+      case SimpleNode.Type.Apostrophe => text("'")
+      case SimpleNode.Type.Ellipsis => text("...")
+      case SimpleNode.Type.Emdash => text("--")
+      case SimpleNode.Type.Endash => text("-;")
+      case SimpleNode.Type.HRule => { newline(); text("---"); newline() }
       case SimpleNode.Type.Linebreak => newline()
       case SimpleNode.Type.Nbsp => text(" ")
     }
   }
 
   def visit(node: SpecialTextNode) {
-    Console.println(node.getClass.getName + ": " + node)
     text(node.getText)
   }
 
   def visit(node: StrongNode) {
-    Console.println(node.getClass.getName + ": " + node)
     openTag("b")
     visitChildren(node)
     closeTag("b")
   }
 
-  def visit(node: TableBodyNode) {}
-
-  def visit(node: TableCellNode) {}
-
-  def visit(node: TableColumnNode) {}
-
-  def visit(node: TableHeaderNode) {}
-
-  def visit(node: TableNode) {}
-
-  def visit(node: TableRowNode) {}
-
-  def visit(node: VerbatimNode) {
-    Console.println(node.getClass.getName + ": " + node)
-    openTag("pre")
-    text(node.getText)
-    closeTag("pre")
+  def visit(node: TableBodyNode) {
+    warn("not implemented yet: " + node)
   }
 
-  def visit(node: WikiLinkNode) {}
+  def visit(node: TableCellNode) {
+    warn("not implemented yet: " + node)
+  }
+
+  def visit(node: TableColumnNode) {
+    warn("not implemented yet: " + node)
+  }
+
+  def visit(node: TableHeaderNode) {
+    warn("not implemented yet: " + node)
+  }
+
+  def visit(node: TableNode) {
+    warn("not implemented yet: " + node)
+  }
+
+  def visit(node: TableRowNode) {
+    warn("not implemented yet: " + node)
+  }
+
+  def visit(node: VerbatimNode) {
+    openTag("code")
+    newline()
+    text(node.getText)
+    closeTag("code")
+    newline()
+    newline()
+  }
+
+  def visit(node: WikiLinkNode) {
+    warn("not implemented yet: " + node)
+  }
 
   def visit(node: TextNode) {
-    Console.println(node.getClass.getName + ": " + node)
     text(node.getText)
   }
 
   def visit(node: SuperNode) {
-    Console.println(node.getClass.getName + ": " + node)
     visitChildren(node)
   }
 
@@ -204,5 +240,26 @@ class BBcodeGenerator extends Visitor {
 
   private def newline() {
     sb.append('\n')
+  }
+
+  private def childrenToString(node: SuperNode): String = {
+    val originalString = sb.toString()
+    sb.clear()
+    visitChildren(node)
+    val result = sb.toString()
+    sb.clear()
+    sb.append(originalString)
+    result
+  }
+
+  private def link(renderedLink: LinkRenderer.Rendering) {
+    openTag("url=" + renderedLink.href)
+    text(renderedLink.text)
+    closeTag("url")
+  }
+
+  private def warn(msg: String) {
+    Console.print("WARN: ")
+    Console.println(msg)
   }
 }

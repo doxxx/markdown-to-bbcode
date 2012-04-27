@@ -34,6 +34,8 @@ class BBcodeGenerator extends Visitor {
     openTag("quote")
     visitChildren(node)
     closeTag("quote")
+    newline()
+    newline()
   }
 
   def visit(node: BulletListNode) {

@@ -4,7 +4,7 @@ markdown-to-bbcode is a simple tool to convert Markdown formatted text files int
 
 ## Usage
 
-    java -jar markdowntobbcode-1.0-jar-with-dependencies.jar <markdown-filename> [<output-filename>]
+    scala markdowntobbcode-1.1-jar-with-dependencies.jar <markdown-filename> [<output-filename>]
 
 If the *output-filename* is omitted, it outputs to stdout.
 

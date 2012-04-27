@@ -74,7 +74,9 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: ExpImageNode) {
-    warn("not implemented yet: " + node)
+    openTag("img")
+    text(node.url)
+    closeTag("img")
   }
 
   def visit(node: ExpLinkNode) {
@@ -151,7 +153,16 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: RefImageNode) {
-    warn("not implemented yet: " + node)
+    val nodeText = childrenToString(node)
+    val key = if (node.referenceKey != null) childrenToString(node.referenceKey) else nodeText
+    references.get(normalizeRefKey(key)) match {
+      case Some(refNode) => {
+        openTag("img")
+        text(refNode.getUrl)
+        closeTag("img")
+      }
+      case _ => warn("unknown reference: " + key)
+    }
   }
 
   def visit(node: RefLinkNode) {

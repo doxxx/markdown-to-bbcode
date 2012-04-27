@@ -260,7 +260,7 @@ class BBcodeGenerator extends Visitor {
   }
 
   private def warn(msg: String) {
-    Console.print("WARN: ")
-    Console.println(msg)
+    Console.err.print("WARN: ")
+    Console.err.println(msg)
   }
 }

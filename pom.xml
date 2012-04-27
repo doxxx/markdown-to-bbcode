@@ -8,8 +8,7 @@
   <inceptionYear>2012</inceptionYear>
   <licenses>
     <license>
-      <name>My License</name>
-      <url>http://....</url>
+      <name>zlib License</name>
       <distribution>repo</distribution>
     </license>
   </licenses>

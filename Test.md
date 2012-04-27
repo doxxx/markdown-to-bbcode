@@ -25,6 +25,10 @@ This is a [link by reference][ref1].
 
 [ref1]: http://www.example2.com/
 
+This is a [[Wiki Link]].
+
+And this should be auto-linked: http://www.example3.com/
+
 * Unordered lists
 * Are very easy
 * To make
@@ -36,5 +40,3 @@ This is a [link by reference][ref1].
 Code block:
 
     print "Hello World!"
-
-

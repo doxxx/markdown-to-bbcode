@@ -222,7 +222,7 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: WikiLinkNode) {
-    warn("not implemented yet: " + node)
+    link(renderer.render(node))
   }
 
   def visit(node: TextNode) {

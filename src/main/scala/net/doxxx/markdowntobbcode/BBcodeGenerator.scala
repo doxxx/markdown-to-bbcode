@@ -157,12 +157,9 @@ class BBcodeGenerator extends Visitor {
   def visit(node: RefLinkNode) {
     val text = childrenToString(node)
     val key = if (node.referenceKey != null) childrenToString(node.referenceKey) else text
-    val refNode = references(normalizeRefKey(key))
-    if (refNode == null) {
-      warn("unknown reference: " + key)
-    }
-    else {
-      link(renderer.render(node, refNode.getUrl, refNode.getTitle, text))
+    references.get(normalizeRefKey(key)) match {
+      case Some(refNode) => link(renderer.render(node, refNode.getUrl, refNode.getTitle, text))
+      case _ => warn("unknown reference: " + key)
     }
   }
 

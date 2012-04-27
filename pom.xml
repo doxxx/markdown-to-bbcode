@@ -2,9 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.doxxx</groupId>
   <artifactId>markdowntobbcode</artifactId>
+  <packaging>jar</packaging>
   <version>1.1-SNAPSHOT</version>
   <name>MarkdownToBBcode</name>
   <description>Markdown to BBcode converter</description>
+  <url>https://github.com/doxxx/markdown-to-bbcode</url>
   <inceptionYear>2012</inceptionYear>
   <licenses>
     <license>
@@ -19,6 +21,14 @@
     <url>https://github.com/doxxx/markdown-to-bbcode</url>
   </scm>
 
+  <developers>
+    <developer>
+      <id>doxxx</id>
+      <name>Gordon Tyler</name>
+      <email>gordon@doxxx.net</email>
+    </developer>
+  </developers>
+
   <properties>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
@@ -26,23 +36,6 @@
     <scala.version>2.9.2</scala.version>
   </properties>
 
-<!--
-  <repositories>
-    <repository>
-      <id>scala-tools.org</id>
-      <name>Scala-Tools Maven2 Repository</name>
-      <url>http://scala-tools.org/repo-releases</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>scala-tools.org</id>
-      <name>Scala-Tools Maven2 Repository</name>
-      <url>http://scala-tools.org/repo-releases</url>
-    </pluginRepository>
-  </pluginRepositories>
--->
   <dependencies>
     <dependency>
       <groupId>org.scala-lang</groupId>
@@ -86,6 +79,12 @@
         <version>1.6</version>
         <configuration>
           <goals>package</goals>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <goals>install</goals>
         </configuration>
       </plugin>
       <plugin>

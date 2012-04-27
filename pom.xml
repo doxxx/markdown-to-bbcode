@@ -13,6 +13,12 @@
     </license>
   </licenses>
 
+  <scm>
+    <connection>scm:git:git://github.com/doxxx/markdown-to-bbcode.git</connection>
+    <developerConnection>scm:git:git@github.com:doxxx/markdown-to-bbcode.git</developerConnection>
+    <url>https://github.com/doxxx/markdown-to-bbcode</url>
+  </scm>
+
   <properties>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
@@ -74,6 +80,14 @@
     <sourceDirectory>src/main/scala</sourceDirectory>
     <testSourceDirectory>src/test/scala</testSourceDirectory>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.6</version>
+        <configuration>
+          <goals>package</goals>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.scala-tools</groupId>
         <artifactId>maven-scala-plugin</artifactId>

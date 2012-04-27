@@ -3,10 +3,12 @@ package net.doxxx.markdowntobbcode
 import org.pegdown.ast._
 import scala.collection.JavaConversions._
 import org.pegdown.LinkRenderer
+import collection.mutable.Map
 
 class BBcodeGenerator extends Visitor {
   val sb = new StringBuilder
   val renderer = new LinkRenderer()
+  val references: Map[String,ReferenceNode] = Map.empty
 
   def toBBcode(rootNode: RootNode): String = {
     rootNode.accept(this)
@@ -14,7 +16,9 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: RootNode) {
-    // TODO: references and abbreviations
+    node.getReferences.foreach { refNode =>
+      references.put(normalizeRefKey(childrenToString(refNode)), refNode)
+    }
     visitChildren(node)
   }
 
@@ -141,7 +145,7 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: ReferenceNode) {
-    warn("not implemented yet: " + node)
+    // do nothing
   }
 
   def visit(node: RefImageNode) {
@@ -149,7 +153,15 @@ class BBcodeGenerator extends Visitor {
   }
 
   def visit(node: RefLinkNode) {
-    warn("not implemented yet: " + node)
+    val text = childrenToString(node)
+    val key = if (node.referenceKey != null) childrenToString(node.referenceKey) else text
+    val refNode = references(normalizeRefKey(key))
+    if (refNode == null) {
+      warn("unknown reference: " + key)
+    }
+    else {
+      link(renderer.render(node, refNode.getUrl, refNode.getTitle, text))
+    }
   }
 
   def visit(node: SimpleNode) {
@@ -257,6 +269,10 @@ class BBcodeGenerator extends Visitor {
     openTag("url=" + renderedLink.href)
     text(renderedLink.text)
     closeTag("url")
+  }
+
+  private def normalizeRefKey(name: String): String = {
+    name.filter(!" \n\t".contains(_)).toLowerCase
   }
 
   private def warn(msg: String) {

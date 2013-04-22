@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ $1 == '*.mk'] || [$1 == '*.mkd']; then
-	if [ $2 == '*.bbcode']; then
+if [[ $1 == *.mk ]] || [[ $1 == *.mkd ]]; then
+	if [[ $2 == *.bbcode ]]; then
 		scala -cp target/markdowntobbcode-1.3-SNAPSHOT.jar net.doxxx.markdowntobbcode.MarkdownToBBcode $1 $2
 	fi
 else

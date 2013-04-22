@@ -3,10 +3,10 @@ package net.doxxx.markdowntobbcode
 import org.pegdown.ast._
 import scala.collection.JavaConversions._
 import org.pegdown.{PegDownProcessor, LinkRenderer}
-import collection.mutable.Map
 import java.io.File
 import org.pegdown.Extensions._
 import scala.io.Source
+import scala.collection.mutable
 
 object BBcodeGenerator {
   def apply(file: File): BBcodeGenerator = {
@@ -33,7 +33,7 @@ object BBcodeGenerator {
 class BBcodeGenerator private (rootNode: RootNode) extends Visitor {
   val sb = new StringBuilder
   val renderer = new LinkRenderer()
-  val references: Map[String,ReferenceNode] = Map.empty
+  val references: mutable.Map[String,ReferenceNode] = mutable.Map.empty
 
   rootNode.accept(this)
 

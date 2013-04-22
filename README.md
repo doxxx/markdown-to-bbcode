@@ -12,7 +12,9 @@ This will produce a jar with dependencies bundled in the target subdirectory. Yo
 
 ## Usage
 
-    scala markdowntobbcode-1.2.jar <markdown-filename> [<output-filename>]
+    scala -cp markdowntobbcode-1.2.jar net.doxxx.markdowntobbcode.MarkdownToBBcode <markdown-filename> [<output-filename>]
+or
+    mk2bbcode <markdown-filename> [<output-filename>]
 
 If the *output-filename* is omitted, it outputs to stdout.
 

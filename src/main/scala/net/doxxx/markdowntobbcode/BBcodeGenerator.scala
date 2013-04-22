@@ -2,16 +2,42 @@ package net.doxxx.markdowntobbcode
 
 import org.pegdown.ast._
 import scala.collection.JavaConversions._
-import org.pegdown.LinkRenderer
+import org.pegdown.{PegDownProcessor, LinkRenderer}
 import collection.mutable.Map
+import java.io.File
+import org.pegdown.Extensions._
+import scala.io.Source
 
-class BBcodeGenerator extends Visitor {
+object BBcodeGenerator {
+  def apply(file: File): BBcodeGenerator = {
+    val contents = Source.fromFile(file)
+    try {
+      apply(contents.toArray)
+    }
+    finally {
+      contents.close()
+    }
+  }
+
+  def apply(contents: String): BBcodeGenerator = {
+    apply(contents.toCharArray)
+  }
+
+  def apply(contents: Array[Char]): BBcodeGenerator = {
+    val processor = new PegDownProcessor(AUTOLINKS | WIKILINKS)
+    val root = processor.parseMarkdown(contents)
+    new BBcodeGenerator(root)
+  }
+}
+
+class BBcodeGenerator private (rootNode: RootNode) extends Visitor {
   val sb = new StringBuilder
   val renderer = new LinkRenderer()
   val references: Map[String,ReferenceNode] = Map.empty
 
-  def toBBcode(rootNode: RootNode): String = {
-    rootNode.accept(this)
+  rootNode.accept(this)
+
+  override def toString: String = {
     sb.toString()
   }
 

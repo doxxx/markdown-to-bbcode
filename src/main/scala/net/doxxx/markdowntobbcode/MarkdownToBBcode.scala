@@ -1,7 +1,7 @@
 package net.doxxx.markdowntobbcode
 
 import io.Source
-import java.io.{OutputStreamWriter, FileWriter}
+import java.io.{File, OutputStreamWriter, FileWriter}
 import org.pegdown.PegDownProcessor
 import org.pegdown.Extensions._
 
@@ -20,7 +20,14 @@ object MarkdownToBBcode extends App {
     val root = processor.parseMarkdown(file.toArray)
     val generator = new BBcodeGenerator
     val writer =
-      if (args.size == 2) new FileWriter(args(1))
+      if (args.size == 2) {
+        val outFile = new File(args(1))
+        if (outFile.exists()) {
+          Console.println("error: output file already exists: " + outFile)
+          System.exit(255)
+        }
+        new FileWriter(args(1))
+      }
       else new OutputStreamWriter(System.out)
     try {
       writer.write(generator.toBBcode(root))

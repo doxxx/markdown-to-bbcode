@@ -11,7 +11,7 @@ import org.pegdown.Extensions._
  */
 object MarkdownToBBcode extends App {
   if (args.isEmpty) {
-    Console.println("Usage: MarkdownToBBcode <filename> [<outputfilename>]")
+    Console.println("Usage: md2bbcode <filename> [<outputfilename>]")
     System.exit(255)
   }
   val file = Source.fromFile(args(0))

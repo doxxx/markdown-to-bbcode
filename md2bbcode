@@ -1,0 +1,3 @@
+#!/bin/sh
+JAR=`ls target/markdowntobbcode*.jar`
+scala $JAR $@

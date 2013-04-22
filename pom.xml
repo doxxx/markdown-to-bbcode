@@ -3,7 +3,7 @@
   <groupId>net.doxxx</groupId>
   <artifactId>markdowntobbcode</artifactId>
   <packaging>jar</packaging>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.3</version>
   <name>MarkdownToBBcode</name>
   <description>Markdown to BBcode converter</description>
   <url>https://github.com/doxxx/markdown-to-bbcode</url>

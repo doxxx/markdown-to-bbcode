@@ -42,3 +42,11 @@ Image: ![Tipos de Lista](uploads/posts/tipos-de-listas.jpg)
 Code block:
 
     print "Hello World!"
+
+This is some <span class="example">inline HTML</span> text.
+
+<table>
+    <tr>
+        <td>This is block level HTML</td>
+    </tr>
+</table>

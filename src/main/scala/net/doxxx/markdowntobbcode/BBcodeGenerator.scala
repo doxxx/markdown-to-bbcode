@@ -120,11 +120,11 @@ class BBcodeGenerator private (rootNode: RootNode) extends Visitor {
   }
 
   def visit(node: HtmlBlockNode) {
-    warn("not implemented yet: " + node)
+    text(node.getText)
   }
 
   def visit(node: InlineHtmlNode) {
-    warn("not implemented yet: " + node)
+    text(node.getText)
   }
 
   def visit(node: ListItemNode) {

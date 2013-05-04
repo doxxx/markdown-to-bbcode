@@ -29,6 +29,8 @@ This is a [[Wiki Link]].
 
 And this should be auto-linked: http://www.example3.com/
 
+Image: ![Tipos de Lista](uploads/posts/tipos-de-listas.jpg)
+
 * Unordered lists
 * Are very easy
 * To make
